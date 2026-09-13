@@ -1,33 +1,46 @@
 # IIOU Mainnet — Pi 2026 integration audit
 
-Audited against the current Pi Docs architecture and Platform API guidance, plus the Pi Developer Guide Mainnet/listing checklists.
+Audited against the current Pi SDK / Platform API integration model and the live Mainnet Developer Portal state.
 
-## Confirmed
+## Confirmed in production
 
 - Frontend loads `https://sdk.minepi.com/pi-sdk.js` explicitly.
-- Mainnet frontend initializes the SDK with `Pi.init({ version: '2.0', sandbox: false })`.
-- Login uses Pi SDK only and requests only the `username` scope because the current product flow does not initiate Pi payments.
+- Mainnet frontend initializes with `Pi.init({ version: '2.0', sandbox: false })`.
+- Main login requests `username` and `payments` because the production app now exposes an optional U2A support payment.
 - Backend independently verifies every Pi access token against `GET https://api.minepi.com/v2/me` before returning or mutating private IOU data.
-- Mainnet and Testnet are separate Developer Portal apps and separate repositories/deployments.
+- U2A payment approval and completion are performed server-side using the Mainnet `PI_API_KEY`.
+- Payment handling verifies authenticated Pi UID, amount, memo, metadata product, direction and Mainnet network before approval/completion.
+- The real `0.01 Pi` `Support IIOU Mainnet` transaction completed successfully in Pi Wallet.
+- Pi Developer Portal Mainnet setup checklist is now 10/10 complete, including `Process a Transaction on the App`.
+- Mainnet and Testnet remain separate Developer Portal apps and separate repositories/deployments.
 - Mainnet persistence uses the dedicated `iiou-mainnet:` Redis namespace.
-- The public Mainnet build contains no Testnet simulator, `testMode`, fake Pioneer, or sandbox-only route.
-- Activity, partial-payment claims, and settlement receipts are application records; they are not represented as blockchain transactions.
-- Privacy and Terms are first-party pages in the app deployment.
-- API responses are marked `Cache-Control: no-store, private` and global security headers are enabled.
-- `/api/health` is available as an operational readiness check for server/storage configuration.
+- Persistent storage is connected through Upstash/Vercel and the backend supports the integration variable-name variants used by the Vercel project.
+- The public Mainnet build contains no Testnet simulator, `testMode`, fake Pioneer or sandbox-only route.
+- Activity notes, partial-settlement claims and settlement receipts are application records; they are not represented as blockchain transactions.
+- Privacy and Terms are first-party pages on the production deployment.
+- API responses are marked `Cache-Control: no-store, private`; baseline global security headers are enabled.
+- `/api/health` provides a non-secret operational readiness check for storage and Mainnet API-key configuration.
 
-## Before Mainnet activation
+## Wallet status
 
-1. Finish Developer Portal hosting and Development/Production URL configuration.
-2. Validate domain ownership using the exact `validation-key.txt` value issued to the Mainnet app.
-3. Generate and install the Mainnet `PI_API_KEY` in Vercel; never reuse the Testnet key.
-4. Connect persistent Upstash/Redis credentials to the Mainnet Vercel project.
-5. Connect/apply for the Mainnet App Wallet in Developer Portal and securely retain its passphrase/seed outside source control.
-6. Keep wallet seed out of Vercel unless a feature actually requires server-side wallet signing. The current IOU ledger does not need it.
-7. If a U2A feature is added later, request the `payments` scope only then and implement the full Pi server approval/completion handshake with payment verification and idempotency.
-8. Do not add A2U until the product has a legitimate payout/reward use case and the Mainnet app is eligible for it.
-9. Run the final Mainnet review checklist in Pi Browser after all production credentials are configured.
+- The Developer Mainnet App Wallet application has been re-submitted under Pi's updated requirements and is pending review.
+- The selected wallet is one whose seed/passphrase is retained by the developer.
+- Wallet seed/passphrase is not required for the current U2A support-payment flow and must remain outside source control.
+- Outgoing wallet / A2U Mainnet functionality should not be enabled until there is a legitimate product payout use case and the relevant Pi eligibility/review is complete.
+- Incoming multisig can be completed separately when all required signers are available.
 
-## Listing posture
+## Product and security posture
 
-IIOU is positioned as a private shared IOU record tool for Pioneers, not as a bank, lender, escrow service, exchange, custody service, or dispute arbiter. The product should continue to avoid external login methods, non-Pi transaction rails, unnecessary data collection, and outward funnels that weaken the Pi-native user experience.
+IIOU is positioned as a private shared IOU record tool for Pioneers, not as a bank, lender, escrow service, exchange, custody service, debt collector or dispute arbiter.
+
+The current payment button is an optional app-support transaction only. It must not be presented as repayment, settlement, escrow or proof that an IOU has been paid.
+
+## Remaining pre-listing work
+
+1. Complete Mainnet Developer Portal metadata: subtitle, Privacy URL, Terms URL and Pi Sign-In setting where applicable.
+2. Run a final UI/UX review on a small set of real Pioneer accounts.
+3. Harden API abuse resistance/rate limiting before materially increasing traffic.
+4. Review concurrent state transitions for IOU actions if usage grows beyond low-volume community testing.
+5. Prepare Mainnet-specific professional listing screenshots and hero artwork with no Testnet validation UI.
+6. Keep Ads disabled unless/until ad integration has a clear product reason and the Pi Ad checklist is intentionally completed.
+7. Re-audit before adding any A2U, custody-like feature, automated repayment flow or other materially different financial behavior.
