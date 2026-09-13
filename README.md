@@ -12,31 +12,52 @@ Lifecycle:
 
 Alternative terminal states: `declined`, `cancelled`.
 
-The Activity Center provides timeline history, private shared notes, partial settlement records, remaining balance and settlement receipts.
+The Activity Center provides timeline history, private shared notes, partial-settlement records, remaining balance and settlement receipts.
 
-## Mainnet separation
+## Mainnet status
 
-This repository is intentionally separate from the Testnet app and repository.
+The production app is live on Pi Mainnet and has completed the Pi Developer Portal 10/10 setup checklist, including a successful real User-to-App transaction.
 
 - Pi SDK uses `sandbox:false`
-- Mainnet credentials and wallet must be separate
-- Redis keys use the `iiou-mainnet:` namespace
-- no Testnet simulator or `testMode` routes
-- no Testnet records are imported automatically
-- no A2U flow is enabled
-- no optional support-payment button is exposed
+- Pi SDK authentication is the only sign-in method
+- access tokens are verified server-side with Pi `/v2/me`
+- U2A support payments use the Pi SDK client flow plus server-side approval/completion
+- payment amount, memo, metadata, direction, network and authenticated user are checked server-side
+- Mainnet persistence uses the `iiou-mainnet:` Redis namespace
+- Mainnet and Testnet remain separate apps, repositories and deployments
+- no Testnet simulator or `testMode` route exists in the Mainnet build
+- no A2U Mainnet payout feature is enabled
+
+## Pi payments
+
+IIOU currently exposes one optional Pi Mainnet payment: `Support IIOU` for `0.01 Pi`.
+
+This payment supports the application and does not settle, alter or validate an IOU between users. IOU settlement records remain non-custodial application records unless the product explicitly states otherwise.
 
 ## Required environment variables
 
 - Redis-compatible REST URL/token (Upstash/Vercel KV supported)
-- `PI_API_KEY` only if a future server-side Pi Platform action needs it
+- `PI_API_KEY` — the Server API Key for the **IIOU Mainnet** Developer Portal app
 
-Pi access tokens are verified server-side using `/v2/me`.
+Supported storage variable families include the standard Upstash/Vercel names and the Vercel integration `STORAGE_*` variants handled by `lib/store.js`.
+
+Wallet seeds/passphrases must never be committed to source control. The current U2A flow does not require a wallet seed in Vercel.
 
 ## Deployment
 
-Designed for Vercel with Node.js 22.x. The Mainnet Pi Developer Portal app should point to the dedicated Mainnet deployment/domain, not the Testnet deployment.
+Designed for Vercel with Node.js 22.x. Production URL:
 
-## Validation
+`https://iioumainnet-theta.vercel.app`
 
-Add the Mainnet Developer Portal validation key to `validation-key.txt` only after Pi provides it. Do not reuse the Testnet validation key.
+The Mainnet Pi Developer Portal app must point to the dedicated Mainnet deployment/domain, not the Testnet deployment.
+
+## Developer Portal posture
+
+Recommended listing metadata:
+
+- Subtitle: `Clear personal IOUs on Pi`
+- Description: `Create, confirm and settle personal IOUs with other Pioneers. Keep due dates and settlement history clear.`
+- Privacy: `/privacy.html`
+- Terms: `/terms.html`
+
+Domain ownership is validated through the Mainnet `validation-key.txt`. Do not reuse Testnet validation material.
