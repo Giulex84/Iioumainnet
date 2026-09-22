@@ -57,6 +57,10 @@ Every agreement has a private share link for the creator and counterparty. Authe
 
 `Split expense` creates 2–12 independently confirmable shares connected by common group metadata. Each participant sees only their own bilateral agreement. Creating or sharing a split never initiates a Pi payment. Implementation and API behavior are documented in `GROUP_SPLITS.md`.
 
+## Languages
+
+The dashboard and Activity Center offer English and Simplified Chinese. The selection persists locally and affects interface copy only; user content and stored agreement data are never translated. See `LOCALIZATION.md`.
+
 ## Deployment
 
 Designed for Vercel with Node.js 22.x. Production URL:
