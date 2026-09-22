@@ -1,10 +1,11 @@
 import { randomUUID } from 'node:crypto';
 import { verifyPiUser, apiError } from '../lib/pi.js';
 import { rememberUser, claimPendingIous, getIou, saveIou, enforceRateLimit, withIouLock } from '../lib/store.js';
+import { safeRecordMetric } from '../lib/metrics.js';
 const same=(a,b)=>String(a||'').toLowerCase()===String(b||'').toLowerCase();
 const terminal=s=>['settled','declined','cancelled'].includes(s);
 function allowed(iou,user){return iou.creatorUid===user.uid||iou.counterpartyUid===user.uid||same(iou.creatorUsername,user.username)||same(iou.counterpartyUsername,user.username)}
-function view(iou,user){const isDebtor=same(iou.debtorUsername,user.username);const isCreditor=same(iou.creditorUsername,user.username);const confirmed=(iou.partialPayments||[]).filter(p=>p.status==='confirmed');const paid=Math.round(confirmed.reduce((s,p)=>s+Number(p.amount||0),0)*1e7)/1e7;const remaining=iou.status==='settled'?0:Math.max(0,Math.round((Number(iou.amount)-paid)*1e7)/1e7);const pending=(iou.partialPayments||[]).find(p=>p.status==='claimed')||null;return{id:iou.id,amount:iou.amount,note:iou.note,dueDate:iou.dueDate,status:iou.status,debtorUsername:iou.debtorUsername,creditorUsername:iou.creditorUsername,creatorUsername:iou.creatorUsername,counterpartyUsername:iou.counterpartyUsername,createdAt:iou.createdAt,updatedAt:iou.updatedAt,settledAt:iou.settledAt||null,settlementClaimedAt:iou.settlementClaimedAt||null,role:isDebtor?'debtor':'creditor',history:Array.isArray(iou.history)?iou.history:[],partialPayments:iou.partialPayments||[],paidAmount:paid,effectivePaidAmount:iou.status==='settled'?Number(iou.amount):paid,remainingAmount:remaining,archived:Boolean((iou.archivedBy||[]).includes(user.uid)),permissions:{canAddNote:!terminal(iou.status),canClaimPartial:isDebtor&&iou.status==='accepted'&&remaining>0&&!pending,canReviewPartial:isCreditor&&iou.status==='accepted'&&Boolean(pending),canArchive:terminal(iou.status)}}}
+function view(iou,user){const isDebtor=same(iou.debtorUsername,user.username);const isCreditor=same(iou.creditorUsername,user.username);const confirmed=(iou.partialPayments||[]).filter(p=>p.status==='confirmed');const paid=Math.round(confirmed.reduce((s,p)=>s+Number(p.amount||0),0)*1e7)/1e7;const remaining=iou.status==='settled'?0:Math.max(0,Math.round((Number(iou.amount)-paid)*1e7)/1e7);const pending=(iou.partialPayments||[]).find(p=>p.status==='claimed')||null;const reminders=Array.isArray(iou.reminders)?iou.reminders:[];const mine=[...reminders].reverse().find(r=>same(r.by,user.username));const canRemind=!terminal(iou.status)&&(!mine||Date.now()-new Date(mine.at).getTime()>=259200000);return{id:iou.id,amount:iou.amount,note:iou.note,dueDate:iou.dueDate,status:iou.status,debtorUsername:iou.debtorUsername,creditorUsername:iou.creditorUsername,creatorUsername:iou.creatorUsername,counterpartyUsername:iou.counterpartyUsername,createdAt:iou.createdAt,updatedAt:iou.updatedAt,settledAt:iou.settledAt||null,settlementClaimedAt:iou.settlementClaimedAt||null,recurrence:iou.recurrence||{frequency:'none'},installmentPlan:iou.installmentPlan||null,reminderCount:reminders.length,lastReminderAt:reminders.at(-1)?.at||null,role:isDebtor?'debtor':'creditor',history:Array.isArray(iou.history)?iou.history:[],partialPayments:iou.partialPayments||[],paidAmount:paid,effectivePaidAmount:iou.status==='settled'?Number(iou.amount):paid,remainingAmount:remaining,archived:Boolean((iou.archivedBy||[]).includes(user.uid)),permissions:{canAddNote:!terminal(iou.status),canRemind,canClaimPartial:isDebtor&&iou.status==='accepted'&&remaining>0&&!pending,canReviewPartial:isCreditor&&iou.status==='accepted'&&Boolean(pending),canArchive:terminal(iou.status)}}}
 export default async function handler(req,res){
   try{
     const user=await verifyPiUser(req);
@@ -28,11 +29,20 @@ export default async function handler(req,res){
       const now=new Date().toISOString();
       iou.history=Array.isArray(iou.history)?iou.history:[];
       iou.partialPayments=Array.isArray(iou.partialPayments)?iou.partialPayments:[];
+      iou.reminders=Array.isArray(iou.reminders)?iou.reminders:[];
       if(action==='add_note'){
         if(terminal(iou.status))return res.status(409).json({success:false,error:'Closed IOUs cannot receive new activity notes'});
         const text=String(req.body?.text||'').trim();
         if(!text||text.length>240)return res.status(400).json({success:false,error:'Note must be between 1 and 240 characters'});
         iou.history.push({type:'note',by:user.username,text,at:now});
+      }else if(action==='send_reminder'){
+        if(terminal(iou.status))return res.status(409).json({success:false,error:'Closed IOUs do not need reminders'});
+        const previous=[...iou.reminders].reverse().find(r=>same(r.by,user.username));
+        if(previous&&Date.now()-new Date(previous.at).getTime()<259200000)return res.status(429).json({success:false,error:'A reminder can be sent once every 72 hours'});
+        const to=same(iou.debtorUsername,user.username)?iou.creditorUsername:iou.debtorUsername;
+        iou.reminders.push({by:user.username,to,at:now});
+        iou.history.push({type:'reminder_sent',by:user.username,to,at:now});
+        await safeRecordMetric(user.uid,'reminder_sent',`${iou.id}:${now.slice(0,10)}`);
       }else if(action==='claim_partial'){
         if(!same(iou.debtorUsername,user.username)||iou.status!=='accepted')return res.status(409).json({success:false,error:'Partial payment claim is not available'});
         if(iou.partialPayments.some(p=>p.status==='claimed'))return res.status(409).json({success:false,error:'A partial payment is already awaiting confirmation'});
@@ -47,7 +57,7 @@ export default async function handler(req,res){
         if(!same(iou.creditorUsername,user.username)||iou.status!=='accepted')return res.status(409).json({success:false,error:'Partial payment review is not available'});
         const p=iou.partialPayments.find(p=>p.status==='claimed'&&(!req.body?.paymentId||p.id===req.body.paymentId));
         if(!p)return res.status(404).json({success:false,error:'No pending partial payment found'});
-        if(action==='confirm_partial'){p.status='confirmed';p.confirmedBy=user.username;p.confirmedAt=now;iou.history.push({type:'partial_confirmed',by:user.username,amount:p.amount,paymentId:p.id,at:now})}
+        if(action==='confirm_partial'){p.status='confirmed';p.confirmedBy=user.username;p.confirmedAt=now;iou.history.push({type:'partial_confirmed',by:user.username,amount:p.amount,paymentId:p.id,at:now});await safeRecordMetric(user.uid,'partial_confirmed',p.id)}
         else{p.status='rejected';p.rejectedBy=user.username;p.rejectedAt=now;iou.history.push({type:'partial_rejected',by:user.username,amount:p.amount,paymentId:p.id,at:now})}
       }else if(action==='archive'||action==='unarchive'){
         if(!terminal(iou.status))return res.status(409).json({success:false,error:'Only closed IOUs can be archived'});

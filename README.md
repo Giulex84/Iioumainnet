@@ -47,6 +47,10 @@ Wallet seeds/passphrases must never be committed to source control. The current 
 
 `/admin.html` is restricted server-side to the configured `IIOU_ADMIN_USERNAME` (default `Giulex84`). It reports daily pseudonymous users and aggregate login, IOU lifecycle and completed support-payment counts. Raw Pi UIDs, IOU notes, counterparties and amounts are not displayed or stored in telemetry.
 
+## IIOU 2.0 agreements
+
+Agreements may be one-time, weekly or monthly and may include a suggested installment plan. A recurring cycle is generated only after both participants complete the current settlement confirmation. Participants can record confirmed partial payments and send a private reminder at most once every 72 hours. IIOU records shared confirmations; it does not custody funds, execute peer-to-peer transfers or guarantee repayment.
+
 ## Deployment
 
 Designed for Vercel with Node.js 22.x. Production URL:
