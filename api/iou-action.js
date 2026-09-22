@@ -1,5 +1,6 @@
 import { verifyPiUser, apiError } from '../lib/pi.js';
 import { rememberUser, claimPendingIous, getIou, saveIou, enforceRateLimit, withIouLock } from '../lib/store.js';
+import { safeRecordMetric } from '../lib/metrics.js';
 const same=(a,b)=>String(a||'').toLowerCase()===String(b||'').toLowerCase();
 export default async function handler(req,res){
   if(req.method!=='POST'){res.setHeader('Allow','POST');return res.status(405).json({success:false,error:'Method not allowed'})}
@@ -35,6 +36,7 @@ export default async function handler(req,res){
       iou.history=Array.isArray(iou.history)?iou.history:[];
       iou.history.push({type:action,by:user.username,at:now});
       await saveIou(iou);
+      await safeRecordMetric(user.uid,next==='settled'?'iou_settled':'iou_action',`${iou.id}:${action}`);
       return res.status(200).json({success:true,status:iou.status,updatedAt:iou.updatedAt});
     });
   }catch(error){

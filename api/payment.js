@@ -1,4 +1,5 @@
 import { verifyPiUser, piServerRequest, apiError } from '../lib/pi.js';
+import { safeRecordMetric } from '../lib/metrics.js';
 
 const AMOUNT = 0.01;
 const MEMO = 'Support IIOU Mainnet';
@@ -34,9 +35,9 @@ export default async function handler(req,res){
     if(action==='complete'){
       if(!txid) return res.status(400).json({success:false,error:'Missing txid'});
       if(payment.transaction?.txid && payment.transaction.txid!==txid) return res.status(400).json({success:false,error:'Transaction mismatch'});
-      if(payment.status?.developer_completed) return res.json({success:true,payment});
+      if(payment.status?.developer_completed){await safeRecordMetric(user.uid,'support_payment',paymentId);return res.json({success:true,payment})}
       const completed=await piServerRequest(`/payments/${encodeURIComponent(paymentId)}/complete`,{method:'POST',body:JSON.stringify({txid})});
-      return res.json({success:true,payment:completed});
+      await safeRecordMetric(user.uid,'support_payment',paymentId);return res.json({success:true,payment:completed});
     }
 
     if(action==='recover'){

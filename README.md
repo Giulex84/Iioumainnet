@@ -43,6 +43,10 @@ Supported storage variable families include the standard Upstash/Vercel names an
 
 Wallet seeds/passphrases must never be committed to source control. The current U2A flow does not require a wallet seed in Vercel.
 
+## Private aggregate telemetry
+
+`/admin.html` is restricted server-side to the configured `IIOU_ADMIN_USERNAME` (default `Giulex84`). It reports daily pseudonymous users and aggregate login, IOU lifecycle and completed support-payment counts. Raw Pi UIDs, IOU notes, counterparties and amounts are not displayed or stored in telemetry.
+
 ## Deployment
 
 Designed for Vercel with Node.js 22.x. Production URL:

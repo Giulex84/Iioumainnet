@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { verifyPiUser, apiError } from '../lib/pi.js';
+import { safeRecordMetric } from '../lib/metrics.js';
 import { rememberUser, claimPendingIous, getUserByUsername, saveIou, listIousFor, enforceRateLimit } from '../lib/store.js';
 
 function publicIou(iou,user){const amCreator=iou.creatorUid===user.uid;const amCounterparty=iou.counterpartyUid===user.uid||String(iou.counterpartyUsername).toLowerCase()===String(user.username).toLowerCase();return{id:iou.id,amount:iou.amount,currency:'Pi',note:iou.note,dueDate:iou.dueDate,status:iou.status,creatorUsername:iou.creatorUsername,counterpartyUsername:iou.counterpartyUsername,debtorUsername:iou.debtorUsername,creditorUsername:iou.creditorUsername,createdAt:iou.createdAt,updatedAt:iou.updatedAt,settlementClaimedAt:iou.settlementClaimedAt||null,settledAt:iou.settledAt||null,role:iou.debtorUsername.toLowerCase()===user.username.toLowerCase()?'debtor':'creditor',canRespond:amCounterparty&&iou.status==='proposed',canCancel:amCreator&&iou.status==='proposed',canClaimPaid:iou.debtorUsername.toLowerCase()===user.username.toLowerCase()&&iou.status==='accepted',canConfirmPaid:iou.creditorUsername.toLowerCase()===user.username.toLowerCase()&&iou.status==='payment_claimed'} }
@@ -31,6 +32,7 @@ export default async function handler(req,res){
       const creatorOwes=direction==='i_owe';
       const iou={id:randomUUID(),creatorUid:user.uid,creatorUsername:user.username,counterpartyUid:known?.uid||null,counterpartyUsername:known?.username||username,debtorUsername:creatorOwes?user.username:(known?.username||username),creditorUsername:creatorOwes?(known?.username||username):user.username,amount:Math.round(numericAmount*1e7)/1e7,note:cleanNote||'Personal IOU',dueDate:parsedDueDate,status:'proposed',createdAt:now,updatedAt:now,history:[{type:'created',by:user.username,at:now}]};
       await saveIou(iou);
+      await safeRecordMetric(user.uid,'iou_created',iou.id);
       return res.status(201).json({success:true,iou:publicIou(iou,user)});
     }
     res.setHeader('Allow','GET, POST');return res.status(405).json({success:false,error:'Method not allowed'});
