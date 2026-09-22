@@ -61,6 +61,10 @@ Every agreement has a private share link for the creator and counterparty. Authe
 
 The dashboard and Activity Center offer English and Simplified Chinese. The selection persists locally and affects interface copy only; user content and stored agreement data are never translated. See `LOCALIZATION.md`.
 
+## Login bootstrap
+
+After Pi authentication, `/api/auth` verifies the access token once, synchronizes pending agreements, records the login metric and returns both the verified user and their agreement list. The dashboard and Activity Center render this bootstrap payload directly instead of immediately repeating the same Pi and Redis work through `/api/ious`.
+
 ## Deployment
 
 Designed for Vercel with Node.js 22.x. Production URL:
