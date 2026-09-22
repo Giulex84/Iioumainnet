@@ -10,7 +10,7 @@ Lifecycle:
 
 `proposed → accepted → payment_claimed → settled`
 
-Alternative terminal states: `declined`, `cancelled`.
+Alternative terminal states: `declined`, `cancelled`, `closed_by_agreement`. An accepted agreement can be closed without settlement only after both participants confirm.
 
 The Activity Center provides timeline history, private shared notes, partial-settlement records, remaining balance and settlement receipts.
 
@@ -50,6 +50,12 @@ Wallet seeds/passphrases must never be committed to source control. The current 
 ## IIOU 2.0 agreements
 
 Agreements may be one-time, weekly or monthly and may include a suggested installment plan. A recurring cycle is generated only after both participants complete the current settlement confirmation. Participants can record confirmed partial payments and send a private reminder at most once every 72 hours. IIOU records shared confirmations; it does not custody funds, execute peer-to-peer transfers or guarantee repayment.
+
+## Shared requests and group splits
+
+Every agreement has a private share link for the creator and counterparty. Authentication and server-side participant authorization remain mandatory; possession of the URL does not grant access.
+
+`Split expense` creates 2–12 independently confirmable shares connected by common group metadata. Each participant sees only their own bilateral agreement. Creating or sharing a split never initiates a Pi payment. Implementation and API behavior are documented in `GROUP_SPLITS.md`.
 
 ## Deployment
 

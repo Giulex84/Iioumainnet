@@ -44,3 +44,7 @@ The current payment button is an optional app-support transaction only. It must 
 5. Prepare Mainnet-specific professional listing screenshots and hero artwork with no Testnet validation UI.
 6. Keep Ads disabled unless/until ad integration has a clear product reason and the Pi Ad checklist is intentionally completed.
 7. Re-audit before adding any A2U, custody-like feature, automated repayment flow or other materially different financial behavior.
+
+## September 2026 product utility update
+
+IIOU now supports private agreement links and group-expense splitting into independently confirmable bilateral shares. The feature uses verified Pi identity and existing agreement authorization, adds no custody, escrow, automatic transfer or A2U flow, and preserves the dedicated Mainnet storage namespace.

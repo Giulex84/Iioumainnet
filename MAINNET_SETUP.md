@@ -49,3 +49,10 @@
 - The current U2A support payment does not require the App Wallet seed in Vercel.
 - Do not enable A2U Mainnet until there is a product-justified payout/reward use case and the app is eligible.
 - Do not represent an IIOU settlement record as proof of a blockchain transfer unless a future feature explicitly verifies that transaction.
+
+## Group split and sharing verification
+
+- `POST /api/splits` verifies the Pi access token and accepts 2–12 unique counterparties.
+- Each share remains a private two-party agreement; the common group identifier is metadata, not a public room.
+- Shared links require Pi Authentication and server-side participant authorization.
+- Split creation never invokes the Pi payment API and never changes the optional support-payment flow.
