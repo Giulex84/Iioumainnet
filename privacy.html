@@ -81,12 +81,7 @@
         </p>
     <h2>Aggregate telemetry</h2>
     <p>
-      We count daily pseudonymous users and aggregate events such as sign-ins,
-      IOU creation, lifecycle actions, settlements and completed support
-      payments. Pi user identifiers are transformed with a server-side keyed
-      hash before counting. Telemetry does not contain IOU notes,
-      counterparties or amounts and is visible only to the application
-      administrator.
+      New Mainnet analytics record only successful Pi sign-ins, distinct daily accounts and accounts observed on a previous UTC day. Pseudonymous attendance identifiers and daily counts are retained for approximately 400 days. Returning-user measurement starts with this release; older missing return counts are not reconstructed. Operational IOU records and payment receipts are separate.
     </p>
     <h2>Retention</h2>
         <p>
@@ -110,3 +105,4 @@
     </main>
   </body>
 </html>
+

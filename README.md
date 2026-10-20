@@ -83,3 +83,8 @@ Recommended listing metadata:
 - Terms: `/terms.html`
 
 Domain ownership is validated through the Mainnet `validation-key.txt`. Do not reuse Testnet validation material.
+
+
+## Minimal analytics release
+
+New analytics collect successful Mainnet Pi logins, distinct daily accounts and returning accounts only. Other analytics events are ignored without storage writes. Legacy data is preserved; missing historical return counts are not reconstructed. Reports distinguish login-only collection from older activity counters. The Arena October 20, 2026 incident is marked as partial data, not backfilled. Payment receipts and gameplay persistence are unchanged.
