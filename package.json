@@ -1,6 +1,6 @@
 {
   "name": "iiou-mainnet",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "private": true,
   "engines": {
     "node": "22.x"
@@ -8,6 +8,6 @@
   "scripts": {
     "test": "node --test tests/persistence.test.cjs tests/localization.test.cjs && node tests/check-admin.cjs && node tests/check-attendance.cjs",
     "build:locales": "node scripts/build-locales.cjs",
-    "test:release": "node --test tests/persistence.test.cjs tests/localization.test.cjs tests/payments.test.cjs"
+    "test:release": "node --test tests/persistence.test.cjs tests/localization.test.cjs tests/payments.test.cjs tests/support-ui.test.cjs"
   }
 }

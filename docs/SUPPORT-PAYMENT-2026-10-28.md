@@ -1,0 +1,19 @@
+# Support payment confirmation and one-unit contribution — 2026-10-28
+
+User requested proceeding with inline confirmation and raising the optional Mainnet support contribution from 0.01 to 1 Pi. Testnet uses 1 Test-Pi to verify the same flow; personal IOU balances, dates and settlement rules are unchanged. Mainnet publication requires final approval of the concrete result.
+
+Confirmation is displayed under the support button only after a server-validated completed/verified Pi transaction. The browser retains only a payment reference for seven days, scoped to network and authenticated user; reopening rechecks Pi through the authenticated server. A status check does not approve, complete, write an audit or emit metrics. Recovery can finish an existing verified transaction but never initiates or approves a new payment. New payments require amount=1 and priceVersion=2. Legacy 0.01 Pi Mainnet / 0.1 Test-Pi payments already approved, submitted or completed retain their original amount and may be verified/recovered. Previously completed payments cannot be discovered retroactively without their payment identifier; no claim that the user's prior transfer was read from Pi APIs.
+
+No database schema, credential or namespace changes. Testnet audit remains separate. Mainnet does not introduce a payment history database. Browser references do not constitute trusted receipts. No automatic repeat payment or live wallet transaction performed by the agent.
+
+Validation: 46 Testnet and 47 Mainnet local release tests passed; frontend/backend syntax passed. Coverage includes wrong user/network/product/id/amount, cancelled and unverified transfers, idempotent completion, legacy receipts, outage/pending behavior, duplicate-click lock and account/network separation. Static demo dpl_2RbkujHMvmZ84mPWzSUMnNHXJ7fE in Testnet project has no server functions, Pi SDK, credentials or API connectivity. Simulated success rendered directly under the button in Italian and Arabic. This is not an actual Pi payment.
+
+Automatic review initially rejected a demo deployment citing superseded Mainnet-only scope. Static files were inspected and original authorization for both environments was documented; review then permitted the preview. A temporary environment/browser outage interrupted work; prepared files remained available after recovery.
+
+Before release: Testnet baseline a9d1fca7486f20531b520420daf8aed285cd0aec / dpl_2zA5nNe8U6h3GGXGDoVbN41py42Q. Mainnet baseline e874c62fa7f535b483460468719062e47b2511f6 / dpl_2B6e51zmKd5jtYsfQU4kV4pjjrKn. Rollback preserves deployed code availability but cannot reverse real payments. Rolling back price code would reject newer price-version payments; use a compatibility-preserving forward fix if a new-price payment is already in flight.
+
+## Final verification
+49 Testnet and 50 Mainnet release tests pass (99 total), including blocked storage and early SDK failure. Testnet release b8cf52630b1c74aa8efc0302f5ee46eb8455a336, READY dpl_AA2aRC7NxgTU9EWwEGcbbNrdGUHf, alias https://iiou.vercel.app/. GET payment endpoint rejects method; deployed homepage references /support-payments.js and contains amount 1 Test-Pi. No live payment performed. Mainnet 1 Pi remains a local candidate pending concrete final publication approval. Existing completed payments without a known payment identifier cannot be discovered automatically; no additional payment is needed to validate the UI.
+
+## Final Mainnet approval — 2026-10-28 Europe/Rome
+User explicitly authorized publishing the inline support confirmation and optional 1 Pi contribution after the concrete result, tests, legacy-recovery behavior and rollback limits were presented. Runtime candidate fc78f3c2cdf3739ed85e8724f53c831c501bcc56 is unchanged; only this approval note is appended. No wallet transaction will be performed by the agent.
