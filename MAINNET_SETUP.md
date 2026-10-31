@@ -1,6 +1,10 @@
 # IIOU Mainnet setup and release checklist
 
-## Completed Pi Developer Portal setup
+## Evidence scope — 2026-10-31
+
+The completed items below are historical records, not current listing approval. Current portal evidence and production baseline are recorded in README. Optional support is now 1 Pi; the successful historical 0.01 Pi payment must not be repeated. No new 1 Pi end-to-end payment is claimed.
+
+## Previously recorded Pi Developer Portal setup
 
 - Separate Mainnet app: IIOU.
 - Paired with the IIOU Testnet app.
@@ -12,12 +16,12 @@
 - Pi Developer Portal setup checklist reached 10/10.
 - Developer Mainnet App Wallet application re-submitted under Pi's updated requirements and currently pending review.
 
-## Developer Portal metadata still to normalize
+## Developer Portal metadata reconciliation
 
-- Subtitle: `Clear personal IOUs on Pi`
+- Subtitle: `Clear personal IOUs on Pi` — visible in supplied screenshot
 - Privacy URL: `https://iioumainnet-theta.vercel.app/privacy.html`
 - Terms URL: `https://iioumainnet-theta.vercel.app/terms.html`
-- Confirm Pi Sign-In setting reflects the production app's Pi-only authentication flow.
+- Portal Pi Sign-In shows Not Set Up. Treat this separately from SDK authentication; the same label appears on Listed Arena, so it is not established as the review blocker.
 - Keep Ads disabled unless the Pi Ad Network integration is intentionally adopted and reviewed.
 
 ## Functional release review
@@ -40,7 +44,7 @@
 - Review all mobile layouts in Pi Browser.
 - Test with a small number of real Pioneer accounts before broader promotion.
 - Add API abuse/rate limiting before materially increasing traffic.
-- Revisit concurrent state-transition protection if usage grows beyond low-volume community testing.
+- Reassess concurrency with production-like tests when traffic grows; later release records document concurrency corrections, so this historical item does not establish an unfixed defect.
 
 ## Safety rules
 
@@ -56,3 +60,4 @@
 - Each share remains a private two-party agreement; the common group identifier is metadata, not a public room.
 - Shared links require Pi Authentication and server-side participant authorization.
 - Split creation never invokes the Pi payment API and never changes the optional support-payment flow.
+

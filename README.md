@@ -2,6 +2,16 @@
 
 Production/Mainnet codebase for IIOU — a private, non-custodial personal IOU ledger for Pi Pioneers.
 
+## Evidence and release alignment — 2026-10-31
+
+- Technical release: 2.2.2. This is separate from Pi SDK version 2.0 and the Developer Portal listing version.
+- Production source baseline: `76b8d52bae67bb6ad679dacb7927748b3cd1a3f6`; Vercel production was READY at verification. This establishes build/source mapping, not authenticated end-to-end functionality.
+- User-supplied Developer Portal screenshots: Mainnet Ecosystem Listing In Review; version 1.0.0; logo update pending; PiNet Active; outgoing and multisig connections shown as None. Current wallet-application detail has not been independently acquired.
+- Auction domain: iou.pi — Claim Pending in supplied screenshots. Web URL ownership verification and PiNet activation do not establish auction-domain claim approval.
+- No reviewer correction request or rejection reason has been acquired. Pending status alone does not identify a technical blocker.
+- December 19, 2026 is a community-reported planning target, not an officially verified deadline.
+- Portal updates require the owner's specific approval. Preserve pending requests; do not cancel them solely to equalize version labels.
+
 ## Product
 
 IIOU lets two Pioneers create, confirm, track and settle a shared personal IOU record. The core ledger does not custody funds, lend Pi, route repayments, or arbitrate disputes.
@@ -16,7 +26,7 @@ The Activity Center provides timeline history, private shared notes, partial-set
 
 ## Mainnet status
 
-The production app is live on Pi Mainnet and has completed the Pi Developer Portal 10/10 setup checklist, including a successful real User-to-App transaction.
+The app has a Mainnet registration and production deployment. Earlier records report completion of the previous 10/10 setup checklist and a real 0.01 Pi U2A support transaction on October 28, 2026. These historical checks do not establish current listing approval or an end-to-end payment at the current price.
 
 - Pi SDK uses `sandbox:false`
 - Pi SDK authentication is the only sign-in method
@@ -30,7 +40,9 @@ The production app is live on Pi Mainnet and has completed the Pi Developer Port
 
 ## Pi payments
 
-IIOU currently exposes one optional Pi Mainnet payment: `Support IIOU` for `0.01 Pi`.
+IIOU currently exposes one optional Pi Mainnet payment: `Support IIOU` for `1 Pi` (priceVersion 2).
+
+Previously approved/submitted/completed 0.01 Pi payments retain legacy recovery support. No new real 1 Pi payment has been verified end-to-end in this work; do not repeat the earlier real payment as a documentation check.
 
 This payment supports the application and does not settle, alter or validate an IOU between users. IOU settlement records remain non-custodial application records unless the product explicitly states otherwise.
 
@@ -59,7 +71,7 @@ Every agreement has a private share link for the creator and counterparty. Authe
 
 ## Languages
 
-The dashboard and Activity Center offer English and Simplified Chinese. The selection persists locally and affects interface copy only; user content and stored agreement data are never translated. See `LOCALIZATION.md`.
+The interface language selector offers English, Italian, Simplified Chinese, Arabic, Vietnamese, Korean, Indonesian and Nigerian Pidgin. Translation completeness and native-speaker quality are not certified by the selector. The selection persists locally and affects interface copy only; user content and stored agreement data are never translated. See `LOCALIZATION.md`.
 
 ## Login bootstrap
 
@@ -88,3 +100,4 @@ Domain ownership is validated through the Mainnet `validation-key.txt`. Do not r
 ## Minimal analytics release
 
 New analytics collect successful Mainnet Pi logins, distinct daily accounts and returning accounts only. Other analytics events are ignored without storage writes. Legacy data is preserved; missing historical return counts are not reconstructed. Reports distinguish login-only collection from older activity counters. The Arena October 20, 2026 incident is marked as partial data, not backfilled. Payment receipts and gameplay persistence are unchanged.
+

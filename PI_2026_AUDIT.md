@@ -2,7 +2,11 @@
 
 Audited against the current Pi SDK / Platform API integration model and the live Mainnet Developer Portal state.
 
-## Confirmed in production
+## Audit scope and later evidence — 2026-10-31
+
+This document contains historical audit assertions. See README for the current release/portal baseline. The optional support contribution is now 1 Pi with legacy 0.01 Pi recovery; the earlier successful transaction is not evidence of a new-price transaction. The Mainnet listing is In Review and the logo update is pending in supplied screenshots. Wallet pending status below is an earlier record, not a newly inspected wallet-detail screen. No new production end-to-end certification is asserted.
+
+## Previously recorded production checks
 
 - Frontend loads `https://sdk.minepi.com/pi-sdk.js` explicitly.
 - Mainnet frontend initializes with `Pi.init({ version: '2.0', sandbox: false })`.
@@ -48,3 +52,4 @@ The current payment button is an optional app-support transaction only. It must 
 ## September 2026 product utility update
 
 IIOU now supports private agreement links and group-expense splitting into independently confirmable bilateral shares. The feature uses verified Pi identity and existing agreement authorization, adds no custody, escrow, automatic transfer or A2U flow, and preserves the dedicated Mainnet storage namespace.
+
