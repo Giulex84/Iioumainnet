@@ -1,5 +1,12 @@
 # IIOU Mainnet
 
+## App documentation · 14 November 2026
+
+[Privacy Policy](privacy.html) · [Terms of Service](terms.html)
+
+The privacy notice covers participant-only IOU records and sign-in metrics. The terms distinguish recording a settlement from confirming a blockchain transfer.
+
+
 Production/Mainnet codebase for IIOU — a private, non-custodial personal IOU ledger for Pi Pioneers.
 
 ## Evidence and release alignment — 2026-10-31
