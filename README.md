@@ -64,7 +64,7 @@ Wallet seeds/passphrases must never be committed to source control. The current 
 
 ## Private aggregate telemetry
 
-`/admin.html` is restricted server-side to the configured `IIOU_ADMIN_USERNAME` (default `Giulex84`). It reports daily pseudonymous users and aggregate login, IOU lifecycle and completed support-payment counts. Raw Pi UIDs, IOU notes, counterparties and amounts are not displayed or stored in telemetry.
+`/admin.html` is restricted server-side to the configured `IIOU_ADMIN_USERNAME` (default `Giulex84`). It reports daily pseudonymous users, successful logins and accounts observed on an earlier UTC day. Older operational-event counters may exist in historical data. Raw Pi UIDs, IOU notes, counterparties and amounts are not displayed or stored in telemetry.
 
 ## IIOU 2.0 agreements
 
@@ -106,5 +106,9 @@ Domain ownership is validated through the Mainnet `validation-key.txt`. Do not r
 
 ## Minimal analytics release
 
-New analytics collect successful Mainnet Pi logins, distinct daily accounts and returning accounts only. Other analytics events are ignored without storage writes. Legacy data is preserved; missing historical return counts are not reconstructed. Reports distinguish login-only collection from older activity counters. The Arena October 20, 2026 incident is marked as partial data, not backfilled. Payment receipts and gameplay persistence are unchanged.
+New analytics collect successful Mainnet Pi logins, distinct daily accounts and returning accounts only. Other analytics events are ignored without storage writes. Legacy data is preserved; missing historical return counts are not reconstructed. Reports distinguish login-only collection from older activity counters. Payment receipts and gameplay persistence are unchanged.
 
+
+## Expense entry alignment · 18 November 2026
+
+The dashboard highlights Split expense. An example is available before sign-in. The optional equal-share calculator distributes the amount to collect from other participants in seven-decimal Pi units, with review/edit before creation. Private request links are shown after successful creation. Interface strings follow the existing eight-language catalog.

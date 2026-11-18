@@ -3771,6 +3771,114 @@ window.APP_TRANSLATIONS={
     "id": "Pembayaran belum dimulai. Referensi pembayaran belum diterima.",
     "pcm": "Payment never start. We no receive payment reference."
   },
+  "See a split example": {
+    "it": "Guarda un esempio",
+    "zh-CN": "查看分摊示例",
+    "ar": "شاهد مثالاً للتقسيم",
+    "vi": "Xem ví dụ chia khoản tiền",
+    "ko": "분할 예시 보기",
+    "id": "Lihat contoh pembagian",
+    "pcm": "See example of how to split"
+  },
+  "You collect 12 Pi from three friends, 4 Pi each. Each friend confirms a private agreement. Pi transfers happen separately in your wallet.": {
+    "it": "Devi ricevere 12 Pi da tre amici, 4 Pi ciascuno. Ogni amico conferma un accordo privato. I trasferimenti Pi avvengono separatamente nel wallet.",
+    "zh-CN": "向三位朋友各收取 4 Pi，共 12 Pi。每位朋友确认自己的私密约定。Pi 转账另行在钱包中进行。",
+    "ar": "تجمع 12 Pi من ثلاثة أصدقاء، 4 Pi من كل شخص. يؤكد كل صديق اتفاقاً خاصاً. تُجرى تحويلات Pi بشكل منفصل في محفظتك.",
+    "vi": "Bạn thu 12 Pi từ ba người bạn, mỗi người 4 Pi. Mỗi người xác nhận một thỏa thuận riêng tư. Việc chuyển Pi diễn ra riêng trong ví.",
+    "ko": "친구 세 명에게 각각 4 Pi씩 총 12 Pi를 받습니다. 각 친구는 비공개 약정을 확인합니다. Pi 송금은 지갑에서 별도로 진행합니다.",
+    "id": "Anda menagih 12 Pi dari tiga teman, masing-masing 4 Pi. Setiap teman mengonfirmasi perjanjian pribadi. Transfer Pi dilakukan terpisah di dompet.",
+    "pcm": "You collect 12 Pi from three friends, 4 Pi each. Each friend go confirm their private agreement. Pi transfer na separately for wallet."
+  },
+  "Create one private share for each Pioneer. Divide the amount to collect equally, then review or edit each share.": {
+    "it": "Crea una quota privata per ogni Pioneer. Dividi in parti uguali la somma da ricevere, poi controlla o modifica ogni quota.",
+    "zh-CN": "为每位先锋创建一份私密约定。先平均分配应收总额，再检查或编辑各份金额。",
+    "ar": "أنشئ حصة خاصة لكل Pioneer. قسّم المبلغ المطلوب بالتساوي، ثم راجع كل حصة أو عدّلها.",
+    "vi": "Tạo phần riêng cho mỗi Pioneer. Chia đều số tiền cần thu, rồi kiểm tra hoặc sửa từng phần.",
+    "ko": "각 Pioneer의 비공개 지분을 만듭니다. 받을 금액을 균등하게 나눈 후 각 금액을 확인하거나 수정하세요.",
+    "id": "Buat bagian pribadi untuk setiap Pioneer. Bagi rata jumlah yang ditagih, lalu tinjau atau ubah setiap bagian.",
+    "pcm": "Create private share for each Pioneer. Divide wetin you wan collect equally, then check or edit each share."
+  },
+  "Total to collect from others (Pi)": {
+    "it": "Totale da ricevere dagli altri (Pi)",
+    "zh-CN": "向他人收取的总额（Pi）",
+    "ar": "المبلغ المطلوب من الآخرين (Pi)",
+    "vi": "Tổng cần thu từ người khác (Pi)",
+    "ko": "다른 사람에게 받을 총액 (Pi)",
+    "id": "Total yang ditagih dari orang lain (Pi)",
+    "pcm": "Total to collect from others (Pi)"
+  },
+  "Leave out your own share.": {
+    "it": "Escludi la tua quota.",
+    "zh-CN": "不含您自己的份额。",
+    "ar": "استبعد حصتك.",
+    "vi": "Không tính phần của bạn.",
+    "ko": "본인 몫은 제외하세요.",
+    "id": "Jangan sertakan bagian Anda.",
+    "pcm": "No include your own share."
+  },
+  "Pi usernames": {
+    "it": "Username Pi",
+    "zh-CN": "Pi 用户名",
+    "ar": "أسماء مستخدمي Pi",
+    "vi": "Tên người dùng Pi",
+    "ko": "Pi 사용자 이름",
+    "id": "Nama pengguna Pi",
+    "pcm": "Pi usernames"
+  },
+  "Calculate equal shares": {
+    "it": "Calcola quote uguali",
+    "zh-CN": "计算均等份额",
+    "ar": "احسب الحصص المتساوية",
+    "vi": "Tính các phần bằng nhau",
+    "ko": "균등 금액 계산",
+    "id": "Hitung bagian sama rata",
+    "pcm": "Calculate equal shares"
+  },
+  "Review or edit the amounts": {
+    "it": "Controlla o modifica gli importi",
+    "zh-CN": "检查或编辑金额",
+    "ar": "راجع المبالغ أو عدّلها",
+    "vi": "Kiểm tra hoặc sửa số tiền",
+    "ko": "금액 확인 또는 수정",
+    "id": "Tinjau atau ubah jumlah",
+    "pcm": "Check or edit the amounts"
+  },
+  "Enter 2–12 Pi usernames.": {
+    "it": "Inserisci da 2 a 12 username Pi.",
+    "zh-CN": "请输入 2–12 个 Pi 用户名。",
+    "ar": "أدخل من اسمين إلى 12 اسم مستخدم Pi.",
+    "vi": "Nhập 2–12 tên người dùng Pi.",
+    "ko": "Pi 사용자 이름을 2~12개 입력하세요.",
+    "id": "Masukkan 2–12 nama pengguna Pi.",
+    "pcm": "Enter 2–12 Pi usernames."
+  },
+  "Enter different Pi usernames and leave out your own.": {
+    "it": "Inserisci username Pi diversi ed escludi il tuo.",
+    "zh-CN": "请输入不同的 Pi 用户名，不含您自己。",
+    "ar": "أدخل أسماء مستخدمين مختلفة واستبعد اسمك.",
+    "vi": "Nhập các tên khác nhau và bỏ tên của bạn.",
+    "ko": "서로 다른 Pi 사용자 이름을 입력하고 본인은 제외하세요.",
+    "id": "Masukkan nama pengguna berbeda dan jangan sertakan nama Anda.",
+    "pcm": "Enter different Pi usernames, no include your own."
+  },
+  "Enter a valid total for these participants.": {
+    "it": "Inserisci un totale valido per questi partecipanti.",
+    "zh-CN": "请输入适合这些参与者的有效总额。",
+    "ar": "أدخل مبلغاً إجمالياً صالحاً لهؤلاء المشاركين.",
+    "vi": "Nhập tổng số tiền hợp lệ cho những người tham gia này.",
+    "ko": "참여자에 맞는 유효한 총액을 입력하세요.",
+    "id": "Masukkan total yang valid untuk peserta ini.",
+    "pcm": "Enter correct total for these participants."
+  },
+  "Share the private requests": {
+    "it": "Condividi le richieste private",
+    "zh-CN": "分享私密请求",
+    "ar": "شارك الطلبات الخاصة",
+    "vi": "Chia sẻ các yêu cầu riêng tư",
+    "ko": "비공개 요청 공유",
+    "id": "Bagikan permintaan pribadi",
+    "pcm": "Share the private requests"
+  },
   "← Back to IIOU": {
     "it": "← Torna a IIOU",
     "zh-CN": "← 返回 IIOU",
