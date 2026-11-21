@@ -3879,6 +3879,69 @@ window.APP_TRANSLATIONS={
     "id": "Bagikan permintaan pribadi",
     "pcm": "Share the private requests"
   },
+  "Example: a 30 Pi expense shared by you, Alice and Bob means 20 Pi to collect from Alice and Bob: 10 Pi each.": {
+    "it": "Esempio: una spesa di 30 Pi tra te, Alice e Bob significa 20 Pi da ricevere da Alice e Bob: 10 Pi ciascuno.",
+    "zh-CN": "例如：你与 Alice 和 Bob 分摊 30 Pi，应向 Alice 和 Bob 共收取 20 Pi，每人 10 Pi。",
+    "ar": "مثال: نفقة قدرها 30 Pi مشتركة بينك وبين Alice وBob تعني تحصيل 20 Pi منهما، أي 10 Pi لكل منهما.",
+    "vi": "Ví dụ: chi phí 30 Pi chia cho bạn, Alice và Bob nghĩa là cần thu 20 Pi từ Alice và Bob: mỗi người 10 Pi.",
+    "ko": "예: 나, Alice, Bob이 30 Pi를 나누면 Alice와 Bob에게 받을 총액은 20 Pi이며 각자 10 Pi입니다.",
+    "id": "Contoh: biaya 30 Pi dibagi antara Anda, Alice, dan Bob berarti menagih 20 Pi dari Alice dan Bob: masing-masing 10 Pi.",
+    "pcm": "Example: if you, Alice and Bob share 30 Pi expense, collect 20 Pi from Alice and Bob: 10 Pi each."
+  },
+  "Use 2–12 other Pi usernames, separated by commas, spaces or new lines. Usernames need 3–32 letters, numbers, underscores or hyphens.": {
+    "it": "Inserisci da 2 a 12 username Pi altrui, separati da virgole, spazi o righe. Ogni username deve avere 3–32 caratteri: lettere, numeri, trattini bassi o trattini.",
+    "zh-CN": "输入其他 2–12 位用户的 Pi 用户名，以逗号、空格或换行分隔。用户名须为 3–32 个字母、数字、下划线或连字符。",
+    "ar": "أدخل أسماء مستخدمي Pi لـ 2–12 شخصًا آخر، مفصولة بفواصل أو مسافات أو أسطر. يجب أن تتكون من 3–32 حرفًا أو رقمًا أو شرطة سفلية أو واصلة.",
+    "vi": "Nhập 2–12 tên người dùng Pi khác, cách nhau bằng dấu phẩy, khoảng trắng hoặc dòng mới. Tên gồm 3–32 chữ cái, chữ số, dấu gạch dưới hoặc gạch nối.",
+    "ko": "다른 Pi 사용자 이름 2–12개를 쉼표, 공백 또는 줄바꿈으로 구분하세요. 이름은 영문자, 숫자, 밑줄 또는 하이픈 3–32자여야 합니다.",
+    "id": "Masukkan 2–12 nama pengguna Pi lain, dipisahkan koma, spasi, atau baris baru. Nama harus terdiri dari 3–32 huruf, angka, garis bawah, atau tanda hubung.",
+    "pcm": "Enter 2–12 other Pi usernames, separate dem with comma, space or new line. Names need 3–32 letters, numbers, underscore or hyphen."
+  },
+  "@{0}: use a username with 3–32 characters.": {
+    "it": "@{0}: lo username deve contenere da 3 a 32 caratteri.",
+    "zh-CN": "@{0}：用户名须包含 3–32 个字符。",
+    "ar": "@{0}: يجب أن يتكون اسم المستخدم من 3–32 رمزًا.",
+    "vi": "@{0}: tên người dùng phải có 3–32 ký tự.",
+    "ko": "@{0}: 사용자 이름은 3–32자여야 합니다.",
+    "id": "@{0}: nama pengguna harus berisi 3–32 karakter.",
+    "pcm": "@{0}: username must get 3–32 characters."
+  },
+  "@{0}: use only letters, numbers, underscores or hyphens.": {
+    "it": "@{0}: usa solo lettere, numeri, trattini bassi o trattini.",
+    "zh-CN": "@{0}：仅使用字母、数字、下划线或连字符。",
+    "ar": "@{0}: استخدم الحروف والأرقام والشرطة السفلية والواصلة فقط.",
+    "vi": "@{0}: chỉ dùng chữ cái, chữ số, dấu gạch dưới hoặc gạch nối.",
+    "ko": "@{0}: 영문자, 숫자, 밑줄 또는 하이픈만 사용하세요.",
+    "id": "@{0}: gunakan hanya huruf, angka, garis bawah, atau tanda hubung.",
+    "pcm": "@{0}: use only letters, numbers, underscore or hyphen."
+  },
+  "@{0}: leave out your own username and share.": {
+    "it": "@{0}: escludi il tuo username e la tua quota.",
+    "zh-CN": "@{0}：请排除你自己的用户名和份额。",
+    "ar": "@{0}: استبعد اسم المستخدم الخاص بك وحصتك.",
+    "vi": "@{0}: không nhập tên người dùng và phần của chính bạn.",
+    "ko": "@{0}: 본인의 사용자 이름과 몫은 제외하세요.",
+    "id": "@{0}: jangan sertakan nama pengguna dan bagian Anda sendiri.",
+    "pcm": "@{0}: leave your own username and share out."
+  },
+  "@{0}: this username appears more than once.": {
+    "it": "@{0}: questo username è presente più di una volta.",
+    "zh-CN": "@{0}：此用户名出现了多次。",
+    "ar": "@{0}: اسم المستخدم هذا مكرر.",
+    "vi": "@{0}: tên người dùng này xuất hiện nhiều lần.",
+    "ko": "@{0}: 이 사용자 이름이 중복됩니다.",
+    "id": "@{0}: nama pengguna ini muncul lebih dari sekali.",
+    "pcm": "@{0}: this username appear more than once."
+  },
+  "{0} private shares. Total to collect: {1} Pi. Your own share is excluded.": {
+    "it": "{0} quote private. Totale da ricevere: {1} Pi. La tua quota è esclusa.",
+    "zh-CN": "{0} 份私密份额。共需收取：{1} Pi。不包含你自己的份额。",
+    "ar": "{0} حصص خاصة. الإجمالي المطلوب تحصيله: {1} Pi. حصتك مستبعدة.",
+    "vi": "{0} phần riêng tư. Tổng cần thu: {1} Pi. Không bao gồm phần của bạn.",
+    "ko": "비공개 분담 {0}건. 받을 총액: {1} Pi. 본인 몫은 제외됩니다.",
+    "id": "{0} bagian privat. Total yang ditagih: {1} Pi. Bagian Anda tidak disertakan.",
+    "pcm": "{0} private shares. Total to collect: {1} Pi. Your own share no dey inside."
+  },
   "← Back to IIOU": {
     "it": "← Torna a IIOU",
     "zh-CN": "← 返回 IIOU",

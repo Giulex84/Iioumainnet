@@ -18,7 +18,7 @@
 <section id="loggedOut"><div class="hero"><div class="eyebrow">Private shared records for Pioneers</div><h1>What we owe should stay clear.</h1><p class="muted">Create a personal IOU, let the other Pioneer confirm it, then keep both sides aligned until settlement.</p><details class="notice"><summary>See a split example</summary><p>You collect 12 Pi from three friends, 4 Pi each. Each friend confirms a private agreement. Pi transfers happen separately in your wallet.</p></details><button id="loginBtn" class="primary wide">Continue with Pi</button><div class="trust"><div><b>Pi identity</b><span>No separate account.</span></div><div><b>Two-sided confirmation</b><span>Both people see the same record.</span></div><div><b>Clear history</b><span>Actions stay visible in the timeline.</span></div></div></div><div class="notice">IIOU is a private record-keeping tool. It does not act as a bank, lender, escrow service, or dispute arbiter.</div></section>
 <section id="app" class="hidden"><div class="top" style="margin-top:22px"><div><div class="muted" style="font-size:12px">Signed in as</div><strong id="username">@pioneer</strong></div><button id="refreshBtn" class="ghost">Refresh</button></div><div id="message"></div><div class="summary"><div class="stat"><span>You owe</span><b id="sumOwe" style="color:var(--gold)">0 π</b></div><div class="stat"><span>Owed to you</span><b id="sumOwed" style="color:var(--mint)">0 π</b></div><div class="stat"><span>Settled</span><b id="sumSettled" style="color:var(--blue)">0</b></div></div><div id="priority" class="priority hidden"></div><div class="toolbar"><div class="tabs" id="tabs"><button class="tab active" data-filter="active">Active</button><button class="tab" data-filter="debtor">You owe</button><button class="tab" data-filter="creditor">Owed to you</button><button class="tab" data-filter="settled">Settled</button><button class="tab" data-filter="all">All</button></div><div class="actions-row"><button id="newBtn" class="secondary">+ New agreement</button><button id="splitBtn" class="primary">Split expense</button><a class="secondary" href="/details.html" style="text-align:center;text-decoration:none">Activity center</a></div></div><section id="splitShareResult" class="card hidden" aria-live="polite"></section><div id="iouList" class="list"></div><div class="support"><h3>Support IIOU</h3><p class="muted">Optional 1 Pi Mainnet payment to support development. It never changes an IOU balance, due date or settlement status.</p><button id="supportBtn" class="secondary wide">Support with 1 Pi</button><div id="supportStatus" class="notice" role="status" aria-live="polite" hidden></div><button id="supportCheck" class="ghost wide" hidden>Check payment</button><small>Support payments are separate from personal IOU records.</small></div><footer class="footer"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a><br><br>IIOU Mainnet · v2.2.2</footer></section>
 </main>
-<div id="splitModal" class="modal hidden" role="dialog" aria-modal="true"><div class="sheet"><h3>Split an expense</h3><p class="muted">Create one private share for each Pioneer. Divide the amount to collect equally, then review or edit each share.</p><form id="splitForm"><div class="field"><label>Expense title</label><input id="splitTitle" maxlength="100" required placeholder="Dinner, trip, shared purchase…"></div><div class="field"><label for="splitTotal">Total to collect from others (Pi)</label><input id="splitTotal" type="number" min="0.0000002" max="1200000" step="0.0000001"><small class="muted">Leave out your own share.</small></div><div class="field"><label for="splitNames">Pi usernames</label><textarea id="splitNames" rows="3" placeholder="alice, bob, carol"></textarea><button type="button" id="calculateSplit" class="secondary">Calculate equal shares</button></div><p id="splitError" role="status"></p><div class="field"><label for="splitRows">Review or edit the amounts</label><textarea id="splitRows" rows="6" required placeholder="alice 1.5&#10;bob 2&#10;carol 0.75"></textarea><small class="muted">2–12 different Pioneers. Do not include your own username.</small></div><div class="field"><label>Due date (optional)</label><input id="splitDueDate" type="date"></div><div class="sheet-actions"><button type="button" id="closeSplitModal" class="ghost">Cancel</button><button type="submit" class="primary">Create split</button></div></form></div></div>
+<div id="splitModal" class="modal hidden" role="dialog" aria-modal="true"><div class="sheet"><h3>Split an expense</h3><p class="muted">Create one private share for each Pioneer. Divide the amount to collect equally, then review or edit each share.</p><form id="splitForm"><div class="field"><label>Expense title</label><input id="splitTitle" maxlength="100" required placeholder="Dinner, trip, shared purchase…"></div><div class="field"><label for="splitTotal">Total to collect from others (Pi)</label><input id="splitTotal" type="number" min="0.0000002" max="1200000" step="0.0000001"><small class="muted">Leave out your own share.</small><p class="muted">Example: a 30 Pi expense shared by you, Alice and Bob means 20 Pi to collect from Alice and Bob: 10 Pi each.</p></div><div class="field"><label for="splitNames">Pi usernames</label><textarea id="splitNames" rows="3" placeholder="alice, bob, carol" aria-describedby="splitNamesHelp"></textarea><small id="splitNamesHelp" class="muted">Use 2–12 other Pi usernames, separated by commas, spaces or new lines. Usernames need 3–32 letters, numbers, underscores or hyphens.</small><button type="button" id="calculateSplit" class="secondary">Calculate equal shares</button></div><p id="splitError" role="status" aria-live="polite"></p><p id="splitSummary" class="notice" role="status" aria-live="polite" hidden></p><div class="field"><label for="splitRows">Review or edit the amounts</label><textarea id="splitRows" rows="6" required placeholder="alice 1.5&#10;bob 2&#10;carol 0.75"></textarea><small class="muted">2–12 different Pioneers. Do not include your own username.</small></div><div class="field"><label>Due date (optional)</label><input id="splitDueDate" type="date"></div><div class="sheet-actions"><button type="button" id="closeSplitModal" class="ghost">Cancel</button><button type="submit" class="primary">Create split</button></div></form></div></div>
 <div id="newModal" class="modal hidden"><div class="sheet"><h3>Create an agreement</h3><p class="muted">Set clear terms. The other Pioneer can accept or decline the shared record.</p><form id="iouForm"><div class="field"><label>Relationship</label><select id="direction"><option value="i_owe">I owe them</option><option value="owed_to_me">They owe me</option></select></div><div class="field"><label>Pi username</label><input id="counterparty" maxlength="32" required placeholder="username"></div><div class="field"><label>Amount in Pi</label><input id="amount" type="number" min="0.0000001" max="100000" step="0.0000001" required></div><div class="field"><label>Reason / note</label><textarea id="note" maxlength="160" placeholder="Rent, shared purchase, personal agreement…"></textarea></div><div class="field"><label>First due date (optional)</label><input id="dueDate" type="date"></div><div class="field"><label>Repeat</label><select id="recurrence"><option value="none">One time</option><option value="weekly">Every week</option><option value="monthly">Every month</option></select></div><div class="field"><label>Repayment plan</label><select id="installments"><option value="1">Single payment</option><option value="2">2 installments</option><option value="3">3 installments</option><option value="4">4 installments</option><option value="6">6 installments</option><option value="12">12 installments</option></select></div><div class="sheet-actions"><button type="button" id="closeModal" class="ghost">Cancel</button><button type="submit" class="primary">Create agreement</button></div></form></div></div>
 <script>
 Pi.init({version:'2.0',sandbox:false});
@@ -52,21 +52,42 @@ function calculateEqualShares(total,names){
   const usernames=names.split(/[\s,;]+/).filter(Boolean).map(name=>name.replace(/^@/,''));
   const units=Math.round(Number(total)*1e7);
   if(usernames.length<2||usernames.length>12)throw new Error('Enter 2–12 Pi usernames.');
-  if(new Set(usernames.map(name=>name.toLowerCase())).size!==usernames.length
-    ||usernames.some(name=>!/^[-_A-Za-z0-9]{3,32}$/.test(name)||name.toLowerCase()===s.user.username.toLowerCase()))
-    throw new Error('Enter different Pi usernames and leave out your own.');
+  const seen=new Set();
+  for(const name of usernames){
+    if(name.length<3||name.length>32)throw new Error(`@${name}: use a username with 3–32 characters.`);
+    if(!/^[-_A-Za-z0-9]+$/.test(name))throw new Error(`@${name}: use only letters, numbers, underscores or hyphens.`);
+    const key=name.toLowerCase();
+    if(key===s.user.username.toLowerCase())throw new Error(`@${name}: leave out your own username and share.`);
+    if(seen.has(key))throw new Error(`@${name}: this username appears more than once.`);
+    seen.add(key);
+  }
   if(!/^\d+(?:\.\d{1,7})?$/.test(total)||units<usernames.length||units>usernames.length*1e12)
     throw new Error('Enter a valid total for these participants.');
   const base=Math.floor(units/usernames.length);
   const remainder=units%usernames.length;
   return usernames.map((name,index)=>name+' '+((base+Number(index<remainder))/1e7).toFixed(7)).join('\n');
 }
+let lastCalculatedRows='';
+function hideSplitSummary(){ $('splitSummary').hidden=true; $('splitSummary').textContent=''; }
+for(const id of ['splitTotal','splitNames'])$(id).addEventListener('input',()=>{
+  if(lastCalculatedRows&&$('splitRows').value===lastCalculatedRows)$('splitRows').value='';
+  lastCalculatedRows='';hideSplitSummary();$('splitError').textContent='';
+});
+$('splitRows').addEventListener('input',()=>{lastCalculatedRows='';hideSplitSummary()});
+$('splitForm').addEventListener('reset',()=>{lastCalculatedRows='';hideSplitSummary();$('splitError').textContent=''});
 $('calculateSplit').onclick=()=>{
+  hideSplitSummary();
   try{
-    $('splitRows').value=calculateEqualShares($('splitTotal').value,$('splitNames').value);
-    $('splitError').textContent='';
+    const rows=calculateEqualShares($('splitTotal').value,$('splitNames').value);
+    $('splitRows').value=rows;lastCalculatedRows=rows;
+    const count=rows.split('\n').length;
+    $('splitSummary').textContent=`${count} private shares. Total to collect: ${Number($('splitTotal').value).toFixed(7)} Pi. Your own share is excluded.`;
+    $('splitSummary').hidden=false;$('splitError').textContent='';
     $('splitRows').focus();
-  }catch(error){$('splitError').textContent=error.message}
+  }catch(error){
+    if(lastCalculatedRows&&$('splitRows').value===lastCalculatedRows)$('splitRows').value='';
+    lastCalculatedRows='';$('splitError').textContent=error.message;
+  }
 };
 function showSplitLinks(agreements){
   const result=$('splitShareResult');
@@ -93,3 +114,4 @@ $('splitForm').onsubmit=async e=>{e.preventDefault();const submit=e.submitter;tr
 <script>window.addEventListener('app-language-change',()=>{if(s.user)render()});</script>
 <script>window.addEventListener('DOMContentLoaded',()=>{supportFlow=window.createSupportPayments({network:'Pi Network',unit:'Pi',memo:'Support IIOU Mainnet',Pi,request:body=>api('/api/payment',{method:'POST',body:JSON.stringify(body)}),getSession:()=>s.user?{uid:s.user.uid}:null});if(queuedSupportPayment)supportFlow.recover(queuedSupportPayment).catch(()=>{})});</script></body>
 </html>
+

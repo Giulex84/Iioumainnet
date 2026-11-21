@@ -112,3 +112,11 @@ New analytics collect successful Mainnet Pi logins, distinct daily accounts and 
 ## Expense entry alignment · 18 November 2026
 
 The dashboard highlights Split expense. An example is available before sign-in. The optional equal-share calculator distributes the amount to collect from other participants in seven-decimal Pi units, with review/edit before creation. Private request links are shown after successful creation. Interface strings follow the existing eight-language catalog.
+
+
+
+## Split expense clarity · 21 November 2026
+
+The amount-to-collect field now includes a 30 Pi / three-person example that explicitly excludes the creator's share. The equal-share calculator identifies usernames that are too short/long, use invalid characters, duplicate another participant or match the signed-in user. A calculation summary displays the number of private shares and exact total to collect. Changing calculator inputs clears unchanged generated rows; manual edits are preserved and hide the generated summary. Form reset clears the summary and validation message.
+
+New guidance, errors and summaries use the existing eight-language catalog. Pi amounts, seven-decimal remainder allocation, agreement persistence, participant access rules and support-payment behavior are unchanged. Native date-picker buttons follow the device/browser language. Automated tests cover these UI states, translations and the existing persistence/payment paths; a fresh two-person Pi Browser demonstration remains a separate live check.

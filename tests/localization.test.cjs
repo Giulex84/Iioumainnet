@@ -12,3 +12,13 @@ test('all eight languages preserve translation placeholders',()=>{const {api,cat
 test('language switches preserve user content and return to English',()=>{const {api,ordinary,personal,doc}=load();api.setLang('it');assert.equal(ordinary.nodeValue,'Aggiorna');assert.equal(personal.nodeValue,'Refresh');api.setLang('ar');assert.equal(doc.documentElement.dir,'rtl');api.setLang('en');assert.equal(doc.documentElement.dir,'ltr');assert.equal(ordinary.nodeValue,'Refresh')});
 test('invalid or unavailable storage falls back to English',()=>{assert.equal(load('unknown').api.lang(),'en');const {api}=load('ar',true);assert.equal(api.lang(),'en');api.setLang('it');assert.equal(api.lang(),'it');api.setLang('bad');assert.equal(api.lang(),'it')});
 test('Arabic isolates parameters without interpreting HTML',()=>{const {api}=load();api.setLang('ar');assert.ok(api.template('Due {0}',['<b>Alice</b>']).includes('\u2068<b>Alice</b>\u2069'))});
+
+test('split guidance, named errors and summaries switch languages without changing usernames',()=>{
+ const {api}=load();
+ const error='@Me: use a username with 3–32 characters.';
+ assert.equal(api.tr(error),error);api.setLang('it');
+ assert.equal(api.tr(error),'@Me: lo username deve contenere da 3 a 32 caratteri.');
+ assert.equal(api.tr('2 private shares. Total to collect: 20.0000000 Pi. Your own share is excluded.'),'2 quote private. Totale da ricevere: 20.0000000 Pi. La tua quota è esclusa.');
+ for(const [code] of api.languages){api.setLang(code);const text=api.tr('@Alice: this username appears more than once.');assert(text.includes('Alice'));if(code!=='en')assert.notEqual(text,'@Alice: this username appears more than once.');}
+ api.setLang('en');assert.equal(api.tr(error),error);
+});
