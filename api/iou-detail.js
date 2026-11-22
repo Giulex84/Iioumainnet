@@ -1,3 +1,4 @@
+import { notifyAgreement } from '../lib/notifications.js';
 import { randomUUID } from 'node:crypto';
 import { verifyPiUser, apiError } from '../lib/pi.js';
 import { rememberUser, claimPendingIous, getIou, saveIou, enforceRateLimit, withIouLock } from '../lib/store.js';
@@ -82,7 +83,7 @@ export default async function handler(req,res){
         if(action==='unarchive')iou.archivedBy=iou.archivedBy.filter(uid=>uid!==user.uid);
       }else return res.status(400).json({success:false,error:'Unknown action'});
       iou.updatedAt=now;
-      await saveIou(iou);
+      await saveIou(iou);await notifyAgreement(iou,user,action);
       return res.status(200).json({success:true,iou:view(iou,user)});
     });
   }catch(error){

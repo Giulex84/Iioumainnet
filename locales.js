@@ -3942,6 +3942,78 @@ window.APP_TRANSLATIONS={
     "id": "{0} bagian privat. Total yang ditagih: {1} Pi. Bagian Anda tidak disertakan.",
     "pcm": "{0} private shares. Total to collect: {1} Pi. Your own share no dey inside."
   },
+  "Pi notifications": {
+    "it": "Notifiche Pi",
+    "zh-CN": "Pi 通知",
+    "ar": "إشعارات Pi",
+    "vi": "Thông báo Pi",
+    "ko": "Pi 알림",
+    "id": "Notifikasi Pi",
+    "pcm": "Pi notifications"
+  },
+  "Receive private agreement updates in the Pi app Notification Center. Optional; delivery depends on your Pi settings.": {
+    "it": "Ricevi aggiornamenti sugli accordi nel centro notifiche dell’app Pi. Facoltativi; la consegna dipende dalle impostazioni Pi.",
+    "zh-CN": "在 Pi 应用通知中心接收协议更新。可选；送达取决于 Pi 设置。",
+    "ar": "تلقّ تحديثات الاتفاقات في مركز إشعارات تطبيق Pi. اختيارية؛ يعتمد التسليم على إعدادات Pi.",
+    "vi": "Nhận cập nhật thỏa thuận trong Trung tâm thông báo của ứng dụng Pi. Không bắt buộc; việc gửi phụ thuộc cài đặt Pi.",
+    "ko": "Pi 앱 알림 센터에서 약정 업데이트를 받습니다. 선택 사항이며 수신은 Pi 설정에 따라 달라집니다.",
+    "id": "Terima pembaruan perjanjian di Pusat Notifikasi aplikasi Pi. Opsional; pengiriman bergantung pada pengaturan Pi.",
+    "pcm": "Get agreement updates for Pi app Notification Center. Na your choice; delivery depend on your Pi settings."
+  },
+  "Enable Pi notifications": {
+    "it": "Attiva notifiche Pi",
+    "zh-CN": "启用 Pi 通知",
+    "ar": "تفعيل إشعارات Pi",
+    "vi": "Bật thông báo Pi",
+    "ko": "Pi 알림 켜기",
+    "id": "Aktifkan notifikasi Pi",
+    "pcm": "Turn on Pi notifications"
+  },
+  "Disable Pi notifications": {
+    "it": "Disattiva notifiche Pi",
+    "zh-CN": "关闭 Pi 通知",
+    "ar": "تعطيل إشعارات Pi",
+    "vi": "Tắt thông báo Pi",
+    "ko": "Pi 알림 끄기",
+    "id": "Nonaktifkan notifikasi Pi",
+    "pcm": "Turn off Pi notifications"
+  },
+  "Pi notifications enabled. Delivery is not guaranteed.": {
+    "it": "Notifiche Pi attivate. La consegna non è garantita.",
+    "zh-CN": "Pi 通知已启用。不保证送达。",
+    "ar": "تم تفعيل إشعارات Pi. التسليم غير مضمون.",
+    "vi": "Đã bật thông báo Pi. Không đảm bảo gửi thành công.",
+    "ko": "Pi 알림이 켜졌습니다. 수신은 보장되지 않습니다.",
+    "id": "Notifikasi Pi aktif. Pengiriman tidak dijamin.",
+    "pcm": "Pi notifications don on. Delivery no dey guaranteed."
+  },
+  "Pi notifications are off.": {
+    "it": "Notifiche Pi disattivate.",
+    "zh-CN": "Pi 通知已关闭。",
+    "ar": "إشعارات Pi معطلة.",
+    "vi": "Thông báo Pi đã tắt.",
+    "ko": "Pi 알림이 꺼져 있습니다.",
+    "id": "Notifikasi Pi nonaktif.",
+    "pcm": "Pi notifications dey off."
+  },
+  "Unable to check notification settings. Try again.": {
+    "it": "Impossibile verificare le impostazioni delle notifiche. Riprova.",
+    "zh-CN": "无法检查通知设置。请重试。",
+    "ar": "تعذر التحقق من إعدادات الإشعارات. حاول مجدداً.",
+    "vi": "Không thể kiểm tra cài đặt thông báo. Hãy thử lại.",
+    "ko": "알림 설정을 확인할 수 없습니다. 다시 시도하세요.",
+    "id": "Tidak dapat memeriksa pengaturan notifikasi. Coba lagi.",
+    "pcm": "We no fit check notification settings. Try again."
+  },
+  "Notification settings were not changed. Check Pi permissions and try again.": {
+    "it": "Impostazioni delle notifiche non modificate. Controlla i permessi Pi e riprova.",
+    "zh-CN": "通知设置未更改。请检查 Pi 权限并重试。",
+    "ar": "لم تتغير إعدادات الإشعارات. تحقق من أذونات Pi وحاول مجدداً.",
+    "vi": "Cài đặt thông báo chưa thay đổi. Kiểm tra quyền Pi và thử lại.",
+    "ko": "알림 설정이 변경되지 않았습니다. Pi 권한을 확인하고 다시 시도하세요.",
+    "id": "Pengaturan notifikasi tidak diubah. Periksa izin Pi dan coba lagi.",
+    "pcm": "Notification settings no change. Check Pi permissions and try again."
+  },
   "← Back to IIOU": {
     "it": "← Torna a IIOU",
     "zh-CN": "← 返回 IIOU",

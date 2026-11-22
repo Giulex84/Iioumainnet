@@ -1,3 +1,4 @@
+import { notifyAgreement } from '../lib/notifications.js';
 import { randomUUID } from 'node:crypto';
 import { verifyPiUser, apiError } from '../lib/pi.js';
 import { safeRecordMetric } from '../lib/metrics.js';
@@ -25,7 +26,7 @@ export default async function handler(req,res){
       if(frequency!=='none'&&!parsedDueDate)return res.status(400).json({success:false,error:'Recurring IOUs require a first due date'});
       const known=await getUserByUsername(username);const now=new Date().toISOString();const creatorOwes=direction==='i_owe';const id=randomUUID();
       const iou={id,creatorUid:user.uid,creatorUsername:user.username,counterpartyUid:known?.uid||null,counterpartyUsername:known?.username||username,debtorUsername:creatorOwes?user.username:(known?.username||username),creditorUsername:creatorOwes?(known?.username||username):user.username,amount:roundPi(numericAmount),note:cleanNote||'Personal IOU',dueDate:parsedDueDate,status:'proposed',recurrence:{frequency,seriesId:id,cycle:1},installmentPlan:installmentCount>1?{count:installmentCount,suggestedAmount:roundPi(numericAmount/installmentCount)}:null,reminders:[],createdAt:now,updatedAt:now,history:[{type:'created',by:user.username,at:now},{type:'terms_set',by:user.username,at:now,frequency,installments:installmentCount}]};
-      await saveIou(iou);await Promise.all([safeRecordMetric(user.uid,'iou_created',iou.id),frequency!=='none'?safeRecordMetric(user.uid,'recurrence_created',iou.id):Promise.resolve(false),installmentCount>1?safeRecordMetric(user.uid,'installment_plan',iou.id):Promise.resolve(false)]);return res.status(201).json({success:true,iou:publicIou(iou,user)});
+      await saveIou(iou);await notifyAgreement(iou,user,'created');await Promise.all([safeRecordMetric(user.uid,'iou_created',iou.id),frequency!=='none'?safeRecordMetric(user.uid,'recurrence_created',iou.id):Promise.resolve(false),installmentCount>1?safeRecordMetric(user.uid,'installment_plan',iou.id):Promise.resolve(false)]);return res.status(201).json({success:true,iou:publicIou(iou,user)});
     }
     res.setHeader('Allow','GET, POST');return res.status(405).json({success:false,error:'Method not allowed'});
   }catch(error){if(error?.status===429&&error?.retryAfter)res.setHeader('Retry-After',String(error.retryAfter));return apiError(res,error)}
