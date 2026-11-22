@@ -1,3 +1,4 @@
+import { notifyAgreement } from '../lib/notifications.js';
 import { randomUUID } from 'node:crypto';
 import { verifyPiUser, apiError } from '../lib/pi.js';
 import { rememberUser, claimPendingIous, getIou, saveIou, enforceRateLimit, withIouLock } from '../lib/store.js';
@@ -40,7 +41,7 @@ export default async function handler(req,res){
       iou.history=Array.isArray(iou.history)?iou.history:[];
       iou.history.push({type:action,by:user.username,at:now});
       const recurring=next==='settled'?generateNextCycle(iou,now):null;
-      await saveIou(iou,recurring);
+      await saveIou(iou,recurring);await notifyAgreement(iou,user,action);if(recurring)await notifyAgreement(recurring,{uid:recurring.creatorUid,username:recurring.creatorUsername},'created');
       await safeRecordMetric(user.uid,next==='settled'?'iou_settled':'iou_action',`${iou.id}:${action}`);
       if(recurring)await safeRecordMetric(user.uid,'recurring_cycle_generated',recurring.id);
       return res.status(200).json({success:true,status:iou.status,updatedAt:iou.updatedAt,nextIouId:recurring?.id||null});
