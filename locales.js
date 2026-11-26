@@ -4014,6 +4014,33 @@ window.APP_TRANSLATIONS={
     "id": "Pengaturan notifikasi tidak diubah. Periksa izin Pi dan coba lagi.",
     "pcm": "Notification settings no change. Check Pi permissions and try again."
   },
+  "Session expired. Sign in with Pi again.": {
+    "it": "Sessione scaduta. Accedi di nuovo con Pi.",
+    "zh-CN": "Pi 会话已过期。请重新登录。",
+    "ar": "انتهت الجلسة. سجّل الدخول مجددًا مع Pi.",
+    "vi": "Phiên hết hạn. Đăng nhập lại với Pi.",
+    "ko": "세션이 만료되었습니다. Pi로 다시 로그인하세요.",
+    "id": "Sesi berakhir. Masuk lagi dengan Pi.",
+    "pcm": "Session don expire. Sign in with Pi again."
+  },
+  "Pi did not grant notification permission. Check permissions in Pi Browser and try again.": {
+    "it": "Pi non ha concesso il permesso per le notifiche. Controlla i permessi in Pi Browser e riprova.",
+    "zh-CN": "Pi 未授予通知权限。请检查 Pi Browser 权限并重试。",
+    "ar": "لم يمنح Pi إذن الإشعارات. تحقق من أذونات Pi Browser وحاول مجددًا.",
+    "vi": "Pi chưa cấp quyền thông báo. Kiểm tra quyền trong Pi Browser rồi thử lại.",
+    "ko": "Pi 알림 권한이 없습니다. Pi Browser 권한을 확인하고 다시 시도하세요.",
+    "id": "Pi belum memberikan izin notifikasi. Periksa izin Pi Browser lalu coba lagi.",
+    "pcm": "Pi no grant notification permission. Check Pi Browser permissions and try again."
+  },
+  "Your Pi account changed. Reload and sign in again.": {
+    "it": "Il tuo account Pi è cambiato. Ricarica e accedi di nuovo.",
+    "zh-CN": "你的 Pi 账户已更改。请刷新并重新登录。",
+    "ar": "تغيّر حساب Pi. أعد التحميل وسجّل الدخول مجددًا.",
+    "vi": "Tài khoản Pi đã thay đổi. Tải lại và đăng nhập lại.",
+    "ko": "Pi 계정이 변경되었습니다. 새로고침 후 다시 로그인하세요.",
+    "id": "Akun Pi berubah. Muat ulang dan masuk lagi.",
+    "pcm": "Your Pi account don change. Reload and sign in again."
+  },
   "← Back to IIOU": {
     "it": "← Torna a IIOU",
     "zh-CN": "← 返回 IIOU",
