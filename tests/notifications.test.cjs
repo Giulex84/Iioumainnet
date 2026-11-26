@@ -23,3 +23,14 @@ test('agreement hooks run after persistence and preserve login scopes',()=>{
  assert.match(fs.readFileSync('index.html','utf8'),/Pi.authenticate\(\['username','payments'\]/);assert.match(fs.readFileSync('details.html','utf8'),/Pi.authenticate\(\['username'\]/);
  for(const file of ['index.html','details.html']){const html=fs.readFileSync(file,'utf8');for(const m of html.matchAll(/<script>([\s\S]*?)<\/script>/g))new vm.Script(m[1]);assert.match(html,/IIOUNotifications\?\.mount/)}
 });
+test('notification consent errors stay off and preserve the expected account',async()=>{
+ for(const [code,copy] of [[401,'Session expired'],[403,'Pi did not grant'],[409,'account changed']]){
+  const button={},status={},box={querySelector:s=>s==='button'?button:status};let calls=0;
+  const c={window:{},document:{getElementById:()=>box},Pi:{authenticate:async()=>({accessToken:'fresh'})},fetch:async(url,opt)=>{const b=JSON.parse(opt.body);assert.equal(b.expectedUid,'owner');calls++;return calls===1?{ok:true,json:async()=>({enabled:false,uid:'owner'})}:{ok:false,status:code,json:async()=>({success:false})}}};
+  vm.createContext(c);vm.runInContext(fs.readFileSync('notifications.js','utf8'),c);await c.window.IIOUNotifications.mount(()=>'old',undefined,'owner');await button.onclick();assert.ok(status.textContent.includes(copy));assert.equal(button.disabled,false);assert.equal(button.textContent,'Enable Pi notifications');
+ }
+});
+test('server rejects a changed account before any preference write',async()=>{
+ const prior=global.fetch;let calls=0;global.fetch=async url=>{assert.equal(url,'https://api.minepi.com/v2/me');calls++;return{ok:true,json:async()=>bob}};
+ try{const {default:handler}=await import('../api/auth.js');const res={status(n){this.code=n;return this},json(d){this.data=d;return this}};await handler({method:'POST',headers:{authorization:'Bearer test'},body:{action:'notifications',enabled:true,expectedUid:'alice'}},res);assert.equal(res.code,409);assert.equal(calls,1)}finally{global.fetch=prior}
+});
