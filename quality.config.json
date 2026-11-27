@@ -1,0 +1,11 @@
+{
+  "name": "IIOU",
+  "webRoot": ".",
+  "entry": "/index.html",
+  "loginSelector": "#loginBtn",
+  "redis": true,
+  "commands": [
+    "npm run test:release",
+    "npm test"
+  ]
+}
