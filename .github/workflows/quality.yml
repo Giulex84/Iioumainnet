@@ -1,0 +1,56 @@
+name: Isolated quality and security
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [ops/quality-20261127]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * 1'
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 25
+    env:
+      NODE_PATH: ${{ github.workspace }}/tools/qa/node_modules
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '22'
+      - name: Install isolated test dependencies
+        run: bash tools/qa/setup.sh
+      - name: Install local Redis
+        if: hashFiles('tests/redis-helper.cjs') != ''
+        run: sudo apt-get update && sudo apt-get install -y redis-server
+      - name: Unit, integration and regression checks
+        run: |
+          mkdir -p verification
+          set -o pipefail
+          node tools/qa/quality.cjs 2>&1 | tee verification/regression.log
+      - name: Limited credential-pattern scan
+        run: node tools/qa/security-check.cjs
+      - name: Dependency advisories
+        run: |
+          mkdir -p verification
+          if [ -f package-lock.json ]; then npm audit --json > verification/dependencies.json; fi
+          npm audit --prefix tools/qa --json > verification/qa-dependencies.json
+      - name: Install Chromium with sandbox support
+        run: tools/qa/node_modules/.bin/playwright install --with-deps chromium
+      - name: Mobile browser checks with local fixtures only
+        run: |
+          set -o pipefail
+          node tools/qa/quality.cjs --browser 2>&1 | tee verification/browser.log
+      - uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
+        if: always()
+        with:
+          name: isolated-verification-${{ github.run_id }}
+          path: verification/
+          retention-days: 14
